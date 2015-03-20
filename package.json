@@ -1,0 +1,41 @@
+{
+  "name": "thunk-queue",
+  "description": "Thunk queue for uncertainty tasks evaluation.",
+  "authors": [
+    "Yan Qing <admin@zensh.com>"
+  ],
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thunks/thunk-queue.git"
+  },
+  "homepage": "https://github.com/thunks/thunk-queue",
+  "keywords": [
+    "thunk",
+    "thunks",
+    "queue",
+    "callback"
+  ],
+  "dependencies": {
+    "thunks": ">=2.7.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
+    "gulp-sequence": "^0.3.0",
+    "mocha": "^2.1.0"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "benchmark",
+    "test",
+    "examples",
+    "gulpfile.js"
+  ]
+}
