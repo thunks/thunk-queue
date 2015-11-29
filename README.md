@@ -55,7 +55,6 @@ Push thunkable task to the `thunk`'s queue, thunkable task will be eager evaluat
 End the `thunk`'s queue. the `thunk` will be evaluated after all tasks finished in queue. return the `thunk`;
 
 
-
 [npm-url]: https://npmjs.org/package/thunk-queue
 [npm-image]: http://img.shields.io/npm/v/thunk-queue.svg
 

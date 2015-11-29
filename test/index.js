@@ -2,62 +2,61 @@
 /* global describe, it */
 
 var assert = require('assert')
-var Thunk = require('thunks')()
+var thunk = require('thunks')()
 var thunkQueue = require('../index')
 
 describe('thunk-queue', function () {
   it('thunkQueue()', function (done) {
-    var thunk = thunkQueue()
+    var queue = thunkQueue()
 
-    thunk(function (err, res) {
+    queue(function (err, res) {
       assert.strictEqual(err, null)
       assert.deepEqual(res, [1, 2, 3])
     })(done)
 
-    thunk.push(1)
+    queue.push(1)
 
-    thunk.push(Thunk(2))
+    queue.push(thunk(2))
 
-    thunk.end(Thunk.delay(10)(function () {
+    queue.end(thunk.delay(10)(function () {
       return 3
     }))
   })
 
   it('thunkQueue(value)', function (done) {
-    var thunk = thunkQueue(1)
+    var queue = thunkQueue(1)
 
-    thunk.push(2)
+    queue.push(2)
 
-    thunk.end(Thunk(3))
+    queue.end(thunk(3))
 
-    thunk(function (err, res) {
+    queue(function (err, res) {
       assert.strictEqual(err, null)
       assert.deepEqual(res, [1, 2, 3])
     })(done)
   })
 
   it('thunkQueue() with empty queue', function (done) {
-    var thunk = thunkQueue()
+    var queue = thunkQueue()
 
-    thunk.end()
+    queue.end()
 
-    thunk(function (err, res) {
+    queue(function (err, res) {
       assert.strictEqual(err, null)
       assert.deepEqual(res, [])
     })(done)
   })
 
   it('thunkQueue() throw error', function (done) {
-    var thunk = thunkQueue()
+    var queue = thunkQueue()
 
-    thunk.push(1)
+    queue.push(1)
 
-    thunk.end()
+    queue.end()
 
     assert.throws(function () {
-      thunk.push(2)
+      queue.push(2)
     })
     done()
   })
-
 })
