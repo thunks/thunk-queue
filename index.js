@@ -4,12 +4,15 @@
 // **License:** MIT
 
 var thunk = require('thunks')()
+var slice = Array.prototype.slice
 
-module.exports = function thunkQueue (task) {
+module.exports = function thunkQueue (tasks) {
   var endQueue
-  var queue = []
   var ctx = this
+  var index = 0
+  var queue = []
   var ended = false
+  var pending = false
 
   var resultThunk = thunk.call(this, function (callback) {
     endQueue = callback
@@ -20,23 +23,34 @@ module.exports = function thunkQueue (task) {
 
   resultThunk.push = function (task) {
     if (ended) throw new Error('the queue is ended.')
-    queue.push(evalThunk(ctx, task))
+    queue.push(thunk(function (done) {
+      if (typeof task === 'function' && task.length !== 1) task = task.call(ctx)
+      thunk.call(ctx, task)(done)
+    }))
+    eagerEval()
     return resultThunk
   }
 
   resultThunk.end = function (task) {
     if (task) resultThunk.push(task)
     ended = true
-    thunk.all(queue)(endQueue)
+    thunk.seq(queue)(endQueue)
     return resultThunk
   }
 
-  return task ? resultThunk.push(task) : resultThunk
-}
+  if (!Array.isArray(tasks)) tasks = slice.call(arguments)
+  if (tasks.length) tasks.map(resultThunk.push)
+  return resultThunk
 
-function evalThunk (ctx, task) {
-  return thunk.call(this, task)(function (error, res) {
-    if (error != null) throw error
-    return arguments.length > 2 ? thunk.digest.apply(null, arguments) : res
-  })
+  function eagerEval () {
+    if (pending || ended || index === queue.length) return
+    index++
+    pending = true
+    queue[index - 1] = queue[index - 1](function (error, res) {
+      if (error != null) throw error
+      pending = false
+      eagerEval()
+      return res
+    })
+  }
 }

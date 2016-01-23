@@ -23,16 +23,16 @@ describe('thunk-queue', function () {
     }))
   })
 
-  it('thunkQueue(value)', function (done) {
-    var queue = thunkQueue(1)
+  it('thunkQueue(tasks)', function (done) {
+    var queue = thunkQueue(1, 2, 3)
 
-    queue.push(2)
+    queue.push(4)
 
-    queue.end(thunk(3))
+    queue.end(thunk(5))
 
     queue(function (err, res) {
       assert.strictEqual(err, null)
-      assert.deepEqual(res, [1, 2, 3])
+      assert.deepEqual(res, [1, 2, 3, 4, 5])
     })(done)
   })
 
@@ -47,7 +47,28 @@ describe('thunk-queue', function () {
     })(done)
   })
 
-  it('thunkQueue() throw error', function (done) {
+  it('thunkQueue() run in sequence', function (done) {
+    var queue = thunkQueue()
+    var pending = 0
+
+    ;[3, 2, 1].map(function (val) {
+      queue.push(function (cb) {
+        pending++
+        setTimeout(function () {
+          assert.strictEqual(pending, 1)
+          pending--
+          cb(null, val)
+        }, 200)
+      })
+    })
+
+    queue.end()(function (err, res) {
+      assert.strictEqual(err, null)
+      assert.deepEqual(res, [3, 2, 1])
+    })(done)
+  })
+
+  it('thunkQueue() ended and throw error', function (done) {
     var queue = thunkQueue()
 
     queue.push(1)

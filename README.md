@@ -10,20 +10,20 @@ Thunk queue for uncertainty tasks evaluation.
 ## Demo
 
 ```js
-var thunkQueue = require('thunk-queue');
-var thunk = thunkQueue();
+var thunkQueue = require('thunk-queue')
+var queueT = thunkQueue()
 
-thunk(function(err, res) {
+queueT(function(err, res) {
   // It is will be run after all thunkable task finished in queue.
-  console.log(err, res);
-});
+  console.log(err, res)
+})
 
-thunk.push(1); // push a primitive value to queue
-thunk.push(Promise.resolve(1)); // push a promise to queue
+queueT.push(1) // push a primitive value to queue
+queueT.push(Promise.resolve(1)) // push a promise to queue
 
-// thunk.push(...), support all thunkable value, such as primitive value, thunk function, promise, generator object, generator function...
+// queueT.push(...), support all thunkable value, such as primitive value, thunk function, promise, generator object, generator function...
 
-thunk.end(); // end the queue.
+queueT.end() // end the queue.
 ```
 
 ## Installation
@@ -35,7 +35,7 @@ npm install thunk-queue
 ## API
 
 ```js
-var thunkQueue = require('thunk-queue');
+var thunkQueue = require('thunk-queue')
 ```
 
 ### thunkQueue([thunkable])
@@ -43,16 +43,16 @@ var thunkQueue = require('thunk-queue');
 Return a thunk function with a closure queue.
 
 ```js
-var thunk = thunkQueue();
+var queueT = thunkQueue()
 ```
 
-#### thunk.push(thunkable)
+#### queueT.push(thunkable)
 
-Push thunkable task to the `thunk`'s queue, thunkable task will be eager evaluated, return the `thunk`;
+Push thunkable task to the `thunk`'s queue, thunkable task will be eager evaluated, return the `queueT`;
 
-#### thunk.end([thunkable])
+#### queueT.end([thunkable])
 
-End the `thunk`'s queue. the `thunk` will be evaluated after all tasks finished in queue. return the `thunk`;
+End the `thunk`'s queue. the `thunk` will be evaluated after all tasks finished in queue. return the `queueT`;
 
 
 [npm-url]: https://npmjs.org/package/thunk-queue
