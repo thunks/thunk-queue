@@ -1,12 +1,12 @@
 'use strict'
-/* global describe, it */
 
 var assert = require('assert')
+var tman = require('tman')
 var thunk = require('thunks')()
 var thunkQueue = require('../index')
 
-describe('thunk-queue', function () {
-  it('thunkQueue()', function (done) {
+tman.suite('thunk-queue', function () {
+  tman.it('thunkQueue()', function (done) {
     var queue = thunkQueue()
 
     queue(function (err, res) {
@@ -23,7 +23,7 @@ describe('thunk-queue', function () {
     }))
   })
 
-  it('thunkQueue(tasks)', function (done) {
+  tman.it('thunkQueue(tasks)', function (done) {
     var queue = thunkQueue(1, 2, 3)
 
     queue.push(4)
@@ -36,7 +36,7 @@ describe('thunk-queue', function () {
     })(done)
   })
 
-  it('thunkQueue() with empty queue', function (done) {
+  tman.it('thunkQueue() with empty queue', function (done) {
     var queue = thunkQueue()
 
     queue.end()
@@ -47,7 +47,7 @@ describe('thunk-queue', function () {
     })(done)
   })
 
-  it('thunkQueue() run in sequence', function (done) {
+  tman.it('thunkQueue() run in sequence', function (done) {
     var queue = thunkQueue()
     var pending = 0
 
@@ -68,7 +68,7 @@ describe('thunk-queue', function () {
     })(done)
   })
 
-  it('thunkQueue() ended and throw error', function (done) {
+  tman.it('thunkQueue() ended and throw error', function (done) {
     var queue = thunkQueue()
 
     queue.push(1)
