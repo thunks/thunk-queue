@@ -4,6 +4,7 @@ Thunk queue for uncertainty tasks evaluation.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Downloads][downloads-image]][downloads-url]
 
 ## [thunks](https://github.com/thunks/thunks)
 
@@ -60,3 +61,6 @@ End the `thunk`'s queue. the `thunk` will be evaluated after all tasks finished 
 
 [travis-url]: https://travis-ci.org/thunks/thunk-queue
 [travis-image]: http://img.shields.io/travis/thunks/thunk-queue.svg
+
+[downloads-url]: https://npmjs.org/package/thunk-queue
+[downloads-image]: http://img.shields.io/npm/dm/thunk-queue.svg?style=flat-square
