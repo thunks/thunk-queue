@@ -3,18 +3,19 @@
 //
 // **License:** MIT
 
-var thunk = require('thunks')()
-var slice = Array.prototype.slice
+const thunk = require('thunks')()
+const slice = Array.prototype.slice
 
 module.exports = function thunkQueue (tasks) {
-  var endQueue
-  var ctx = this
-  var index = 0
-  var queue = []
-  var ended = false
-  var pending = false
+  const ctx = this
+  const queue = []
 
-  var resultThunk = thunk.call(this, function (callback) {
+  let endQueue = null
+  let index = 0
+  let ended = false
+  let pending = false
+
+  const resultThunk = thunk.call(this, function (callback) {
     endQueue = callback
   })(function (error, res) {
     if (error != null) throw error

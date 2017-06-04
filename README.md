@@ -1,5 +1,5 @@
-thunk-queue
-====
+# thunk-queue
+
 Thunk queue for uncertainty tasks evaluation.
 
 [![NPM version][npm-image]][npm-url]
@@ -11,8 +11,8 @@ Thunk queue for uncertainty tasks evaluation.
 ## Demo
 
 ```js
-var thunkQueue = require('thunk-queue')
-var queueT = thunkQueue()
+const thunkQueue = require('thunk-queue')
+const queueT = thunkQueue()
 
 queueT(function(err, res) {
   // It is will be run after all thunkable task finished in queue.
@@ -36,7 +36,7 @@ npm install thunk-queue
 ## API
 
 ```js
-var thunkQueue = require('thunk-queue')
+const thunkQueue = require('thunk-queue')
 ```
 
 ### thunkQueue([thunkable])
@@ -44,7 +44,7 @@ var thunkQueue = require('thunk-queue')
 Return a thunk function with a closure queue.
 
 ```js
-var queueT = thunkQueue()
+const queueT = thunkQueue()
 ```
 
 #### queueT.push(thunkable)

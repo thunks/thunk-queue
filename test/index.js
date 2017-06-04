@@ -1,13 +1,13 @@
 'use strict'
 
-var assert = require('assert')
-var tman = require('tman')
-var thunk = require('thunks')()
-var thunkQueue = require('../index')
+const assert = require('assert')
+const tman = require('tman')
+const thunk = require('thunks')()
+const thunkQueue = require('../index')
 
 tman.suite('thunk-queue', function () {
   tman.it('thunkQueue()', function (done) {
-    var queue = thunkQueue()
+    const queue = thunkQueue()
 
     queue(function (err, res) {
       assert.strictEqual(err, null)
@@ -24,7 +24,7 @@ tman.suite('thunk-queue', function () {
   })
 
   tman.it('thunkQueue(tasks)', function (done) {
-    var queue = thunkQueue(1, 2, 3)
+    const queue = thunkQueue(1, 2, 3)
 
     queue.push(4)
 
@@ -37,7 +37,7 @@ tman.suite('thunk-queue', function () {
   })
 
   tman.it('thunkQueue() with empty queue', function (done) {
-    var queue = thunkQueue()
+    const queue = thunkQueue()
 
     queue.end()
 
@@ -48,8 +48,8 @@ tman.suite('thunk-queue', function () {
   })
 
   tman.it('thunkQueue() run in sequence', function (done) {
-    var queue = thunkQueue()
-    var pending = 0
+    const queue = thunkQueue()
+    let pending = 0
 
     ;[3, 2, 1].map(function (val) {
       queue.push(function (cb) {
@@ -69,7 +69,7 @@ tman.suite('thunk-queue', function () {
   })
 
   tman.it('thunkQueue() ended and throw error', function (done) {
-    var queue = thunkQueue()
+    const queue = thunkQueue()
 
     queue.push(1)
 
